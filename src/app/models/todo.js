@@ -1,5 +1,7 @@
 const mongoose = require('../../database');
 
+const User = require('../models/User');
+
 const TodoSchema = new mongoose.Schema({
   title: {
     type: String,
@@ -12,8 +14,8 @@ const TodoSchema = new mongoose.Schema({
   },
   user: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
-    required: true
+    ref: User,
+    require: true
   }
 });
 

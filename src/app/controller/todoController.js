@@ -1,22 +1,42 @@
 const express = require('express');
 const authMiddleware = require('../middlewares/auth');
 
-const Todo = require('../models/todo');
+const Todo = require('../models/Todo');
 
 const router = express.Router();
 
 router.use(authMiddleware);
 
-router.get('/', (req, res) => {
-  res.send({ user: req.userId });
+router.get('/', async (req, res) => {
+  try {
+    const todos = await Todo.find();
+    // .populate('User');  FIXME: Populate não funcionando
+
+    res.send({ todos });
+  } catch (err) {
+    res.status(400).send({ error: "Error loading todos" });
+  }
 });
 
 router.get('/:todoId', async (req, res) => {
-  res.send({ user: req.userId });
+  try {
+    const todo = await Todo.findById(req.params.todoId);
+    // .populate('User');  FIXME: Populate não funcionando
+
+    res.send({ todo });
+  } catch (err) {
+    res.status(400).send({ error: "Error loading todo" });
+  }
 });
 
 router.post('/', async (req, res) => {
-  res.send({ user: req.userId });
+  try {
+    const todo = await Todo.create({ ...req.body, user: req.userId });
+
+    return res.send(todo);
+  } catch (err) {
+    res.status(400).send({ error: "Error creating new todo" });
+  }
 });
 
 router.put('/:todoId', async (req, res) => {
@@ -24,7 +44,13 @@ router.put('/:todoId', async (req, res) => {
 });
 
 router.delete('/:todoId', async (req, res) => {
-  res.send({ user: req.userId });
+  try {
+    await Todo.findByIdAndRemove(req.params.todoId);
+
+    res.send();
+  } catch (err) {
+    res.status(400).send({ error: "Error deleting todo" });
+  }
 });
 
 module.exports = app => app.use('/todo', router);
