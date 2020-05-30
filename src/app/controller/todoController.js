@@ -40,7 +40,16 @@ router.post('/', async (req, res) => {
 });
 
 router.put('/:todoId', async (req, res) => {
-  res.send({ user: req.userId });
+  try {
+    const todo = await Todo.findByIdAndUpdate(req.params.todoId, {
+      ...req.body,
+      user: req.userId
+    }, { new: true });
+
+    return res.send(todo);
+  } catch (err) {
+    res.status(400).send({ error: "Error updating todo" });
+  }
 });
 
 router.delete('/:todoId', async (req, res) => {
