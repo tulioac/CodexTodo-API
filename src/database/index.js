@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb+srv://tutex1500:togekiss1@cluster0-wulxk.gcp.mongodb.net/test?retryWrites=true&w=majority', { useUnifiedTopology: true, useNewUrlParser: true });
+mongoose.connect('mongodb://localhost/todo', { useUnifiedTopology: true, useNewUrlParser: true });
 
 let db = mongoose.connection;
 

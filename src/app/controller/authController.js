@@ -1,10 +1,9 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
 
-const authConfig = require('../config/auth');
+const authConfig = require('../../config/auth');
 
-const Todo = require('../models/todo');
-const User = require('../models/user');
+const User = require('../models/User');
 
 const router = express.Router();
 
@@ -22,6 +21,8 @@ router.post('/register', async (req, res) => {
 
     const user = await User.create(req.body);
 
+    user.password = undefined;
+
     return res.send({
       user,
       token: generateToken({ id: user.id })
@@ -32,13 +33,19 @@ router.post('/register', async (req, res) => {
 });
 
 router.post('/authenticate', async (req, res) => {
-  const { email } = req.body;
+  const { email, password } = req.body;
 
-  const user = await User.findOne({ email });
+  const user = await User.findOne({ email }).select('+password');
 
   if (!user) {
     return res.status(400).send({ error: "User not found" });
   }
+
+  if (password !== user.password) {
+    return res.status(400).send({ error: "Invalid password" })
+  }
+
+  user.password = undefined;
 
   return res.send({
     user,

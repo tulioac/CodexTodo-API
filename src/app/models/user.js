@@ -1,9 +1,14 @@
-const mongoose = require('../database');
+const mongoose = require('../../database');
 
 const UserSchema = new mongoose.Schema({
   email: {
     type: String,
     required: true
+  },
+  password: {
+    type: String,
+    required: true,
+    select: false
   },
   createdAt: {
     type: Date,

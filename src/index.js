@@ -6,8 +6,8 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-require('./controller/authController')(app);
-require('./controller/projectController')(app);
+require('./app/controller/authController')(app);
+require('./app/controller/projectController')(app);
 
 app.listen(3000, () => {
   console.log('Servidor ligado...');

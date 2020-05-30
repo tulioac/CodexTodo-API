@@ -1,0 +1,27 @@
+let todoSchema = new mongoose.Schema({
+  title: String
+});
+
+let Todo = mongoose.model('Todo', todoSchema);
+
+let cafe = new Todo({ title: 'Cafe' });
+let almoco = new Todo({ title: 'Almoco' });
+
+console.log(cafe.title);
+
+cafe.save((err, cafe) => {
+  if (err)
+    return console.error(err);
+  console.log('Deu bom');
+});
+
+
+Todo.find((err, todos) => {
+  if (err)
+    return console.error(err);
+  console.log(todos);
+});
+
+Todo.find({ title: /^Cafe/ }, () => {
+  console.log('Achou');
+});
