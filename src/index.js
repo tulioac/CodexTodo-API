@@ -7,7 +7,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 require('./app/controller/authController')(app);
-require('./app/controller/projectController')(app);
+require('./app/controller/todoController')(app);
 
 app.listen(3000, () => {
   console.log('Servidor ligado...');

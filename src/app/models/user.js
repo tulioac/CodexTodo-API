@@ -13,7 +13,11 @@ const UserSchema = new mongoose.Schema({
   createdAt: {
     type: Date,
     default: Date.now
-  }
+  },
+  todos: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Todo'
+  }]
 });
 
 const User = mongoose.model('User', UserSchema);

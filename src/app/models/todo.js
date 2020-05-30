@@ -1,20 +1,18 @@
-const mongoose = require('../database');
+const mongoose = require('../../database');
 
 const TodoSchema = new mongoose.Schema({
   title: {
     type: String,
     required: true
   },
-  body: {
-    type: String,
-    required: true
-  },
   priority: {
     type: String,
-    required: true
+    required: true,
+    default: "Baixa"
   },
-  userId: {
-    type: String,
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
     required: true
   }
 });
