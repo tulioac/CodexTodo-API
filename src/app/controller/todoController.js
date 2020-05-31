@@ -18,6 +18,16 @@ router.get('/', async (req, res) => {
   }
 });
 
+router.get('/high', async (req, res) => {
+  try {
+    await Todo.find().sort({ priority: "ascending" }).exec((err, todos) => {
+      res.send(todos);
+    });
+  } catch (err) {
+    res.status(400).send({ error: "Error loading sorted todos" });
+  }
+});
+
 router.get('/:todoId', async (req, res) => {
   try {
     const todo = await Todo.findById(req.params.todoId);
