@@ -18,8 +18,6 @@ module.exports = (req, res, next) => {
   if (!/^Bearer$/i.test(scheme))
     return res.status(401).send({ error: "Token malformatted" });
 
-  // Verificar se o token está na lista de token utilizados do usuário
-
   jwt.verify(token, authConfig.secret, async (err, decoded) => {
     if (err)
       return res.status(401).send({ error: "Token invalid" });

@@ -33,7 +33,6 @@ router.post('/register', async (req, res) => {
   }
 });
 
-// TODO: Verificar se o token passado já está na lista de tokens!
 
 router.post('/authenticate', async (req, res) => {
   const { email, password } = req.body;
@@ -72,4 +71,3 @@ router.post('/logout', async (req, res) => {
 })
 
 module.exports = app => app.use('/auth', router);
-
