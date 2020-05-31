@@ -1,4 +1,5 @@
 const express = require('express');
+
 const authMiddleware = require('../middlewares/auth');
 
 const Todo = require('../models/Todo');
@@ -10,7 +11,6 @@ router.use(authMiddleware);
 router.get('/', async (req, res) => {
   try {
     const todos = await Todo.find();
-    // .populate('User');  FIXME: Populate não funcionando
 
     res.send({ todos });
   } catch (err) {
@@ -21,7 +21,6 @@ router.get('/', async (req, res) => {
 router.get('/:todoId', async (req, res) => {
   try {
     const todo = await Todo.findById(req.params.todoId);
-    // .populate('User');  FIXME: Populate não funcionando
 
     res.send({ todo });
   } catch (err) {

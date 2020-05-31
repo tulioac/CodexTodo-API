@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 
 const authConfig = require('../../config/auth');
-
+const authMiddlware = require('../middlewares/auth');
 const User = require('../models/User');
 
 const router = express.Router();
@@ -33,6 +33,8 @@ router.post('/register', async (req, res) => {
   }
 });
 
+// TODO: Verificar se o token passado já está na lista de tokens!
+
 router.post('/authenticate', async (req, res) => {
   const { email, password } = req.body;
 
@@ -54,4 +56,20 @@ router.post('/authenticate', async (req, res) => {
   });
 });
 
+router.use(authMiddlware);
+
+router.post('/logout', async (req, res) => {
+  try {
+    const { token, userId } = req;
+
+    const user = await User.findByIdAndUpdate(userId, { $push: { usedTokens: token } }, { useFindAndModify: true });
+
+    res.send({ user });
+  }
+  catch (err) {
+    res.status(400).send({ error: "Cant logout" })
+  }
+})
+
 module.exports = app => app.use('/auth', router);
+

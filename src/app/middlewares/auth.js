@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 const authConfig = require('../../config/auth.json');
+const User = require('../models/User');
 
 module.exports = (req, res, next) => {
   const authHeader = req.headers.authorization;
@@ -17,11 +18,19 @@ module.exports = (req, res, next) => {
   if (!/^Bearer$/i.test(scheme))
     return res.status(401).send({ error: "Token malformatted" });
 
-  jwt.verify(token, authConfig.secret, (err, decoded) => {
+  // Verificar se o token está na lista de token utilizados do usuário
+
+  jwt.verify(token, authConfig.secret, async (err, decoded) => {
     if (err)
       return res.status(401).send({ error: "Token invalid" });
 
+    const user = await User.findById(decoded.id);
+
+    if (user.usedTokens.includes(token))
+      return res.status(401).send({ error: "Token expired" });
+
     req.userId = decoded.id;
+    req.token = token;
     return next();
   });
 };

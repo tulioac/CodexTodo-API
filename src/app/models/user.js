@@ -14,7 +14,10 @@ const UserSchema = new mongoose.Schema({
   createdAt: {
     type: Date,
     default: Date.now
-  }
+  },
+  usedTokens: [{
+    type: String
+  }]
 });
 
 UserSchema.pre('save', async function (next) {
