@@ -1,5 +1,6 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
 
 const authConfig = require('../../config/auth');
 
@@ -41,7 +42,7 @@ router.post('/authenticate', async (req, res) => {
     return res.status(400).send({ error: "User not found" });
   }
 
-  if (password !== user.password) {
+  if (!await bcrypt.compare(password, user.password)) {
     return res.status(400).send({ error: "Invalid password" })
   }
 
