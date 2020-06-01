@@ -1,6 +1,6 @@
 const mongoose = require('../../database');
 
-const User = require('../models/User');
+const User = require('./user');
 
 const TodoSchema = new mongoose.Schema({
   title: {
