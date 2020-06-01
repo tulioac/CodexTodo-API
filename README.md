@@ -30,7 +30,6 @@
 
 - Necessária a autenticação
 
-
 ## Tarefas
 
 ### Listar todas
@@ -55,7 +54,7 @@
 
 **/todo** [_POST_]
 
-Prioridade opcional
+Prioridade opcional. Baixa por padrão.
 
 ```json
 {
