@@ -2,7 +2,7 @@
 
 ## Usuário
 
-### Registro
+### - Registro
 
 **/auth/register** [_POST_]
 
@@ -13,7 +13,7 @@
 }
 ```
 
-### Login
+### - Login
 
 **/auth/authenticate** [_POST_]
 
@@ -24,7 +24,7 @@
 }
 ```
 
-### Logout
+### - Logout
 
 **/auth/logout** [_POST_]
 
@@ -32,25 +32,25 @@
 
 ## Tarefas
 
-### Listar todas
+### - Listar todas
 
 **/todo** [_GET_]
 
 - Necessária a autenticação
 
-### Exibir específica
+### - Exibir específica
 
 **/todo/_id_** [_GET_]
 
 - Necessária a autenticação
 
-### Listar por prioridade alta
+### - Listar por prioridade alta
 
 **/todo/high** [_GET_]
 
 - Necessária a autenticação
 
-### Criar 
+### - Criar 
 
 **/todo** [_POST_]
 
@@ -65,7 +65,7 @@ Prioridade opcional. Baixa por padrão.
 
 - Necessária a autenticação
 
-### Atualizar dado
+### - Atualizar dado
 
 **/todo/_id_** [_PUT_]
 
@@ -77,7 +77,7 @@ Prioridade opcional. Baixa por padrão.
 
 - Necessária a autenticação
 
-### Deletar
+### - Deletar
 
 **/todo/_id_** [_DELETE_]
 
