@@ -20,7 +20,7 @@ router.get('/', async (req, res) => {
 
 router.get('/high', async (req, res) => {
   try {
-    await Todo.find().sort({ priority: "ascending" }).exec((err, todos) => {
+    await Todo.find({ user: req.userId }).sort({ priority: "ascending" }).exec((err, todos) => {
       res.send(todos);
     });
   } catch (err) {
