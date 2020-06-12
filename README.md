@@ -8,6 +8,7 @@
 
 ```json
 {
+	"name": "",
 	"email": "",
 	"password": ""
 }
